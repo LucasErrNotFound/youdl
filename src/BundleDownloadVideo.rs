@@ -5,24 +5,24 @@ use rustube::{Id, VideoFetcher};
 
 pub async fn bundle_download() -> Result<(), Box<dyn Error>> {
     print!("Enter the number of YouTube links: ");
-    let youtube_link_numbers: usize = read!();
-    let mut youtube_links = Vec::new();
-    let mut video_titles = Vec::new();
+    let YoutubeLinkCount: usize = read!();
+    let mut YoutubeLinks = Vec::new();
+    let mut VideoTitles = Vec::new();
 
-    for _ in 0..youtube_link_numbers {
+    for _ in 0..YoutubeLinkCount {
         print!("\nEnter a YouTube link: ");
-        let youtube_link: String = read!();
-        let id = Id::from_raw(&youtube_link)?;
-        let descrambler = VideoFetcher::from_id(id.into_owned())?.fetch().await?;
+        let YoutubeURL: String = read!();
+        let ID = Id::from_raw(&YoutubeURL)?;
+        let descrambler = VideoFetcher::from_id(ID.into_owned())?.fetch().await?;
 
-        youtube_links.push(youtube_link.trim().to_string());
-        video_titles.push(descrambler.video_title().to_owned());
+        YoutubeLinks.push(YoutubeURL.trim().to_string());
+        VideoTitles.push(descrambler.video_title().to_owned());
     }
 
     let mut handles = vec![];
 
-    for (index, link) in youtube_links.into_iter().enumerate() {
-        let title = video_titles[index].clone();
+    for (index, link) in YoutubeLinks.into_iter().enumerate() {
+        let title = VideoTitles[index].clone();
         let handle = tokio::spawn(async move {
             let _ = rustube::download_best_quality(&link).await;
             title

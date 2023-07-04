@@ -6,8 +6,8 @@ use rustube::{Id, VideoFetcher};
 pub async fn single_download() -> Result<(), Box<dyn Error>> {
     print!("Enter Youtube Link to Download: ");
     let YoutubeLink: String = read!();
-    let id = Id::from_raw(&YoutubeLink)?;
-    let descrambler = VideoFetcher::from_id(id.into_owned())?
+    let ID = Id::from_raw(&YoutubeLink)?;
+    let descrambler = VideoFetcher::from_id(ID.into_owned())?
         .fetch().await?;
 
     let title = descrambler.video_title();
