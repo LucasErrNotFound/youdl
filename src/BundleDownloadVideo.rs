@@ -22,7 +22,7 @@ pub async fn bundle_download() -> Result<(), Box<dyn Error>> {
     let mut handles = vec![];
 
     for (index, link) in YoutubeLinks.into_iter().enumerate() {
-        let title = VideoTitles[index].clone();
+        let title = VideoTitles[index].to_owned();
         let handle = tokio::spawn(async move {
             let _ = rustube::download_best_quality(&link).await;
             title
