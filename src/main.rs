@@ -15,15 +15,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
     print!("-----> ");
     let option: char = read!();
 
-    if option == 'A' {
-        BundleDownloadVideo::bundle_download().await?;
-    }
-    else if option == 'B' {
-        SingleDownloadVideo::single_download().await?;
-    }
-    else if option == 'D' {
-        let file: String = std::fs::read_to_string("Test.txt")?;
-        file.lines().for_each(|lines| println!("\n{}", lines));
+    match option {
+        'A' => BundleDownloadVideo::bundle_download().await?,
+        'B' => SingleDownloadVideo::single_download().await?,
+        'C' => println!("WORK IN PROGRESS"),
+        'D' => println!("WORK IN PROGRESS"),
+        _ => println!("ERROR, WRONG INPUT"),
     }
     Ok(())
 }
